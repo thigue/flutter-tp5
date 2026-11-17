@@ -47,6 +47,60 @@ class Principal extends StatefulWidget {
 }
 
 class _PrincipalState extends State<Principal> {
+  final List<GeneroMusical> _generos = [
+    GeneroMusical(
+      nome: 'Rock',
+      imagem: 'assets/imagens/rock.png',
+      descricao:
+          'Estilo marcado pelo som de guitarras elétricas, baixo e bateria.',
+    ),
+    GeneroMusical(
+      nome: 'Pop',
+      imagem: 'assets/imagens/pop.png',
+      descricao: 'Possui melodias marcantes e refrões fáceis de cantar.',
+    ),
+    GeneroMusical(
+      nome: 'Sertanejo',
+      imagem: 'assets/imagens/sertanejo.png',
+      descricao: 'Estilo brasileiro com raízes na música caipira, na viola e no violão.',
+    ),
+    GeneroMusical(
+      nome: 'Samba',
+      imagem: 'assets/imagens/samba.png',
+      descricao: 'Gênero brasileiro de raízes afro-brasileiras, com destaque para a percussão.',
+    ),
+    GeneroMusical(
+      nome: 'MPB',
+      imagem: 'assets/imagens/mpb.png',
+      descricao: 'A Música Popular Brasileira reúne diferentes ritmos e influências do país.',
+    ),
+    GeneroMusical(
+      nome: 'Eletrônica',
+      imagem: 'assets/imagens/eletronica.png',
+      descricao: 'Utiliza sintetizadores, computadores e batidas programadas.',
+    ),
+  ];
+
+  Widget _construirGenero(GeneroMusical genero) {
+    return ListTile(
+      leading: Image.asset(
+        genero.imagem,
+        width: 72,
+        height: 56,
+        fit: BoxFit.cover,
+      ),
+      title: Text(genero.nome),
+      trailing: Switch(
+        value: genero.gosta,
+        onChanged: (valor) {
+          setState(() {
+            genero.gosta = valor;
+          });
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,40 +108,10 @@ class _PrincipalState extends State<Principal> {
         centerTitle: true,
         title: const Text(Principal.nomeAluno, style: TextStyle(fontSize: 18)),
       ),
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(Icons.headphones, size: 72, color: Colors.deepPurple),
-              SizedBox(height: 16),
-              Text(
-                'Preferências Musicais',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              SizedBox(height: 12),
-              Text(
-                'Escolha seus gêneros favoritos e personalize como gosta de ouvir música.',
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Suas preferências\n\n'
-                    'Marque os gêneros que você gosta, ajuste o volume '
-                    'e escolha se deseja receber recomendações.',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(8),
+        itemCount: _generos.length,
+        itemBuilder: (context, indice) => _construirGenero(_generos[indice]),
       ),
     );
   }
