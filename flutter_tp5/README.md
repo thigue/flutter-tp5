@@ -1,12 +1,17 @@
-# TP5 — Preferências Musicais
+# flutter_tp5
 
-Aluno: THIAGO GUERRA SOARES.
+A new Flutter project.
 
-Segundo commit: lista com seis gêneros, imagens locais e Switches para
-marcar os estilos favoritos. Os dados ficam apenas em memória.
+## Getting Started
 
-Terceiro commit: tela de configurações com descrição, volume,
-recomendações e confirmação ao salvar.
+This project is a starting point for a Flutter application.
 
-Para executar: `flutter pub get` e `flutter run`.
-Para verificar: `flutter analyze` e `flutter test`.
+A few resources to get you started if this is your first Flutter project:
+
+- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
+- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

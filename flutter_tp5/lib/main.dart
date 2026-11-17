@@ -98,6 +98,14 @@ class _PrincipalState extends State<Principal> {
           });
         },
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => ConfiguracoesGenero(genero: genero),
+          ),
+        );
+      },
     );
   }
 
@@ -112,6 +120,75 @@ class _PrincipalState extends State<Principal> {
         padding: const EdgeInsets.all(8),
         itemCount: _generos.length,
         itemBuilder: (context, indice) => _construirGenero(_generos[indice]),
+      ),
+    );
+  }
+}
+
+class ConfiguracoesGenero extends StatefulWidget {
+  final GeneroMusical genero;
+
+  const ConfiguracoesGenero({super.key, required this.genero});
+
+  @override
+  State<ConfiguracoesGenero> createState() => _ConfiguracoesGeneroState();
+}
+
+class _ConfiguracoesGeneroState extends State<ConfiguracoesGenero> {
+  void _salvarPreferencias() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Preferências de ${widget.genero.nome} salvas!')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(Principal.nomeAluno, style: TextStyle(fontSize: 18)),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Text(widget.genero.nome, style: const TextStyle(fontSize: 24)),
+          const SizedBox(height: 8),
+          Text(widget.genero.descricao),
+          const SizedBox(height: 24),
+          Text('Volume preferido: ${widget.genero.volume.round()}%'),
+          Slider(
+            value: widget.genero.volume,
+            min: 0,
+            max: 100,
+            divisions: 100,
+            label: '${widget.genero.volume.round()}%',
+            onChanged: (valor) {
+              setState(() {
+                widget.genero.volume = valor;
+              });
+            },
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: widget.genero.receberRecomendacoes,
+                onChanged: (valor) {
+                  setState(() {
+                    widget.genero.receberRecomendacoes = valor!;
+                  });
+                },
+              ),
+              const Expanded(
+                child: Text('Desejo receber recomendações deste gênero'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: _salvarPreferencias,
+            child: const Text('Salvar Preferências'),
+          ),
+        ],
       ),
     );
   }
